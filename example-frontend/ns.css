@@ -1,0 +1,28 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --rns-red: #FF443B;
+  --rns-black: #000000;
+  background-color: var(--rns-black);
+  color: var(--rns-red);
+}
+body, h1 {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+body {
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr min-content min-content;
+}
+h1 {
+  font-size: 5em;
+}
+.muted {
+  font-size: 0.2em;
+}
