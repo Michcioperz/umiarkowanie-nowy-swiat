@@ -1,4 +1,5 @@
 use std::collections::VecDeque;
+use std::io::Write;
 use tokio::stream::StreamExt;
 
 enum Turn {
@@ -55,6 +56,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut stream = res.bytes_stream();
     let mut bytes: VecDeque<u8> = VecDeque::new();
     let mut turn = Turn::Skip(metaint);
+    let stdout = std::io::stdout();
+    let mut stdout = stdout.lock();
 
     while let Some(chunk) = stream.next().await {
         let chunk = chunk?;
@@ -62,7 +65,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         while bytes.len() >= turn.this_much() {
             turn = match turn {
                 Turn::Skip(n) => {
-                    bytes.drain(0..n);
+                    stdout.write_all(&bytes.drain(0..n).collect::<Vec<_>>())?;
                     Turn::CaptureMeta
                 }
                 Turn::CaptureMeta => Turn::Capture(bytes.pop_front().unwrap() as usize * 16),
