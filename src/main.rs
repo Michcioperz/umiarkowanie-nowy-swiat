@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use std::io::Write;
-use tokio::stream::StreamExt;
+use tokio_stream::StreamExt;
 
 enum Turn {
     Skip(usize),
